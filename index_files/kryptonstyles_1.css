@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.main-box {
+    width: 80%;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.sidebar {
+    flex-basis: 25%;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+
+.content {
+    flex-basis: 75%;
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text a:hover {
+    text-decoration: underline;
+}
+
+.projects-list {
+    padding-left: 20px;
+}
+
+.contact-info {
+    margin-bottom: 10px;
+}
+
+.footer {
+    margin-top: auto;
+    margin-bottom: 0;
+}
+.credits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+/*
+     FILE ARCHIVED ON 00:43:00 May 15, 2023 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 01:22:12 Nov 19, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.679
+  exclusion.robots: 0.022
+  exclusion.robots.policy: 0.009
+  esindex: 0.012
+  cdx.remote: 6.902
+  LoadShardBlock: 72.992 (3)
+  PetaboxLoader3.datanode: 92.068 (4)
+  load_resource: 107.842
+  PetaboxLoader3.resolve: 67.832
+*/
