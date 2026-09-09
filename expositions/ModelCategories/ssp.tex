@@ -1,0 +1,132 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+\colorlet{LightBlue}{Blue!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=section]{theorem}
+\tcolorboxenvironment{theorem}{colback=LightGray}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+\tcolorboxenvironment{proposition}{colback=LightOrange}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+\tcolorboxenvironment{principle}{colback=LightGreen}
+
+\declaretheoremstyle[name=Definition,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{definition}
+\tcolorboxenvironment{definition}{colback=LightBlue}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+		\\ [2.0cm]
+		\HRule{1.5pt} \\
+		\LARGE \textbf{\uppercase{Introduction to Model Categories}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{9th September 2026} \vspace*{10\baselineskip}}
+		}
+\date{}
+\author{\textbf{Karshit Joshi} \\ 
+		Math and Physics Student \\
+		Chennai Mathematical Institute \\
+		9th September 2026}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\section{Preliminaries}
+This is an exposition written by me to take notes of what I read about Model Categories and certain ideas that I think are very useful while reading Model Categories.Any mistakes made in this exposition is purely mine and please report them to [karshitkjoshi@cmi.ac.in].I am mostly using "Model Categories" by Mark Hovey\cite{Hov} and "Categorical Homotopy Theory" by Emily Riehl\cite{Rhl} as my primary resources to read about the topic from, and will try my best to mention any other resources that I use along the way in the bibliography.I am grateful to Chennai Mathematical Institute to make the above resources available to me in person.
+
+\newpage
+
+\section{Derived Functors}
+\subsection{Homotopical Categories}
+An important question has always been in different settings and even in category theory, "Are these two objects isomorphic ?", while the answer to the question depends on the what we consider an isomorphism.Fixing the context, it could perhaps be easier or difficult to differentiate between objects.
+
+A good strategy in our toolset has always been to classify objects "upto some property".Note that the creation of such classification creates a new category where the context is changed to something which is much coarser than the current context that we are trying to work in.This often helps us to focus ourselves towards a particular way to differentiate objects rather than having the vague goal of differentiating objects with nothing ahead of us.Common examples of this phenomenon include Homotopy Groups, Homology Groups, Euler Characteristic, Betti Numbers, etc.We shall now try to build this notion in category theory for abstract categories.
+
+Suppose we start with a category $\mathcal{C}$.We have some property $\mathcal{P}$ along which we can test our objects to see if they are "equivalent" or not.If identifying $\mathcal{P}$ on 2 different objects tells us that they have the same property.Our desire is to consider those objects to be the same.A natural way to store all of this data of identification is in a category, with the purpose that we will inherit all the data naturally by doing a construction on $\mathcal{C}$.
+
+We are now clear that we must perform construction on $\mathcal{C}$ to create a category which characterizes the data that we get from $\mathcal{P}$.There are naturally 2 ways to do this.
+\begin{itemize}
+	\item Consider the objects of $\mathcal{C}$, consider the equivalence relation imposed by $\mathcal{P}$ on the collection of object of C. We quotient by the equivalence relation. We also forget all the maps between objects which were identified.The residue will turn out to be a category with a few more natural steps.
+	\item Consider the maps of $\mathcal{C}$, formally introduce the inverses of maps between objects, "which characterize the equivalence of $\mathcal{P}$".This just naturally forms a category once again after completing all possible compositions with the new maps.
+\end{itemize}
+
+Both the above ways are useful in different ways that we will explore throughout the span of this text. Notice the difference, that the first construction forgets how things are actually equivalent whereas the second does not due to the existence of all the maps which "characterize the equivalence of $\mathcal{P}$.This especially comes into the picture if you view the first construction as the manifestation of "existence of an equivalence" rather than "equivalent with the witness map", wherein the second construction is much more suited to the latter. This often comes into play when you are considering n-truncations of an infinity category which are the objects we are truly trying to study indirectly via model categories. Due to the previous reason, this also plays a significant role in homotopy type theory.[Note that the first construction is also technically inline with Leibniz equivalence of identibles which says that "if two objects have the same interactions, they are the same".i.e. Isomorphisms should not exist as objects, instead all isomorphisms must be equalities. This plays a major role in homotopy type theory.]
+
+Since the second construction retains much more information from the ambient category. It is natural to call it the appropriate "localisation" of the category. The terminology of localisation is inherited from ring theory, wherein we localize a ring against a prime ideal which requires to invert all elements outside the prime ideal.
+
+We now turn our focus to actually selecting the maps of the category $\mathcal{C}$, to be our equivalences which "we believe" characterizes some property $\mathcal{P}$. Here is a subtle but important point that we "choose" a property to classify objects against. In the context of abstract categories, the selection of maps in the category is in direct correspondence to the abstract property $\mathcal{P}$. Hence, the selection of property is equivalent to selection of which maps to invert. Hence, the structure we obtain is a deliberate construction, not a natural structure to consider, i.e. The structure is a choice, not a natural byproduct of $\mathcal{C}$.
+
+It is also natural to expect that all isomorphisms are also a part of the collection of maps we invert mainly because, if $\mathcal{C}$ cannot distinguish between 2 objects, they must possess the same set of properties at all levels [Note that this is essentially the application of Yoneda Lemma]. Hence, this helps us to arrive at our first definition.
+
+\begin{definition}
+	A \textbf{homotopical category} is a category $\mathcal{C}$ equipped with a subcategory $\mathcal{W}$ such that, for any composable triple of arrows,i.e. $f,g,h$. If $hg$ and $gf$ are in $\mathcal{W}$, so are $f,g,h,$ and $hgf$.
+
+The arrows in $\mathcal{W}$ are called equivalences. The property above concerning the maps is called the 2-of-6 property.[abbrievation of "2 out of 6"]
+\end{definition}
+
+There is a weaker condition that is also often considered instead of the 2-of-6 property. It is called 2-of-3 property.
+
+\begin{definition}
+	If any 2 of the 3 possible composition of 2 composable maps are in $\mathcal{W}$. Then $\mathcal{W}$ contains all 3.
+\end{definition}
+
+A small caveat in the above 2 definitions is that $\mathcal{W}$ must also contain all the identities for each object in $\mathcal{C}$.
+
+\section{Weak Factorisation Systems}
+
+\section{Model Categories}
+
+\newpage
+% ------------------------------------------------------------------------------
+% Reference and Cited Works
+% ------------------------------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+% ------------------------------------------------------------------------------
+
+\end{document}
