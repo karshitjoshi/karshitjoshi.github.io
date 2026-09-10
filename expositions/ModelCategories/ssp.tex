@@ -12,6 +12,7 @@
 \usepackage{framed}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tcolorbox}
+\usepackage{tikz-cd}
 
 \colorlet{LightGray}{White!90!Periwinkle}
 \colorlet{LightOrange}{Orange!15}
@@ -58,7 +59,7 @@
 		\\ [2.0cm]
 		\HRule{1.5pt} \\
 		\LARGE \textbf{\uppercase{Introduction to Model Categories}
-		\HRule{2.0pt} \\ [0.6cm] \LARGE{9th September 2026} \vspace*{10\baselineskip}}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{10th September 2026} \vspace*{10\baselineskip}}
 		}
 \date{}
 \author{\textbf{Karshit Joshi} \\ 
@@ -80,7 +81,7 @@ This is an exposition written by me to take notes of what I read about Model Cat
 \newpage
 
 \section{Derived Functors}
-\subsection{Homotopical Categories}
+\subsection{Homotopical Categories and Derived Functors}
 An important question has always been in different settings and even in category theory, "Are these two objects isomorphic ?", while the answer to the question depends on the what we consider an isomorphism.Fixing the context, it could perhaps be easier or difficult to differentiate between objects.
 
 A good strategy in our toolset has always been to classify objects "upto some property".Note that the creation of such classification creates a new category where the context is changed to something which is much coarser than the current context that we are trying to work in.This often helps us to focus ourselves towards a particular way to differentiate objects rather than having the vague goal of differentiating objects with nothing ahead of us.Common examples of this phenomenon include Homotopy Groups, Homology Groups, Euler Characteristic, Betti Numbers, etc.We shall now try to build this notion in category theory for abstract categories.
@@ -89,7 +90,7 @@ Suppose we start with a category $\mathcal{C}$.We have some property $\mathcal{P
 
 We are now clear that we must perform construction on $\mathcal{C}$ to create a category which characterizes the data that we get from $\mathcal{P}$.There are naturally 2 ways to do this.
 \begin{itemize}
-	\item Consider the objects of $\mathcal{C}$, consider the equivalence relation imposed by $\mathcal{P}$ on the collection of object of C. We quotient by the equivalence relation. We also forget all the maps between objects which were identified.The residue will turn out to be a category with a few more natural steps.
+	\item Consider the objects of $\mathcal{C}$, consider the equivalence relation imposed by $\mathcal{P}$ on the collection of object of C. We quotient by the equivalence relation. We also forget all the maps between objects which were identified.The residue will turn out to be a category with a few more natural steps. This can be thought of as skeleton category of localisation given by the second point.
 	\item Consider the maps of $\mathcal{C}$, formally introduce the inverses of maps between objects, "which characterize the equivalence of $\mathcal{P}$".This just naturally forms a category once again after completing all possible compositions with the new maps.
 \end{itemize}
 
@@ -102,18 +103,56 @@ We now turn our focus to actually selecting the maps of the category $\mathcal{C
 It is also natural to expect that all isomorphisms are also a part of the collection of maps we invert mainly because, if $\mathcal{C}$ cannot distinguish between 2 objects, they must possess the same set of properties at all levels [Note that this is essentially the application of Yoneda Lemma]. Hence, this helps us to arrive at our first definition.
 
 \begin{definition}
-	A \textbf{homotopical category} is a category $\mathcal{C}$ equipped with a subcategory $\mathcal{W}$ such that, for any composable triple of arrows,i.e. $f,g,h$. If $hg$ and $gf$ are in $\mathcal{W}$, so are $f,g,h,$ and $hgf$.
+	A \textbf{homotopical category} is a category $\mathcal{C}$ equipped with a wide* subcategory $\mathcal{W}$ such that, for any composable triple of arrows,i.e. $f,g,h$. If $hg$ and $gf$ are in $\mathcal{W}$, so are $f,g,h,$ and $hgf$.
 
 The arrows in $\mathcal{W}$ are called equivalences. The property above concerning the maps is called the 2-of-6 property.[abbrievation of "2 out of 6"]
+(*) By a wide subcategory, we mean a subcategory which contains all identities of the category $\mathcal{C}$ and hence by 2-of-6 property, all isomorphisms of $\mathcal{C}$ aswell.
 \end{definition}
 
 There is a weaker condition that is also often considered instead of the 2-of-6 property. It is called 2-of-3 property.
 
 \begin{definition}
-	If any 2 of the 3 possible composition of 2 composable maps are in $\mathcal{W}$. Then $\mathcal{W}$ contains all 3.
+	2-of-3 Property occurs if any 2 of the 3 possible composition of 2 composable maps are in $\mathcal{W}$. Then $\mathcal{W}$ contains all 3.
 \end{definition}
 
-A small caveat in the above 2 definitions is that $\mathcal{W}$ must also contain all the identities for each object in $\mathcal{C}$.
+A small caveat in the above 2 definitions is that $\mathcal{W}$ must also contain all the identities for each object in $\mathcal{C}$ which has a clear enough reason to be included.
+
+Now that we have concretely defined what is the data that we would like to work with. We now approach the problem of carrying out the construction of the localisation of the category as we previously mentioned. The following explicit construction is due to Pierre Gabriel and Michel Zisman. Its morphisms are equivalence classes of finite zig-zags (i.e.compositions which maps from $\mathcal{W}$ in the string with finite length) with arrows in $\mathcal{W}$ to be inverted with the same name but dual of its original counterpart subjected to the following relations.
+
+\begin{definition}
+	The localisation category/homotopy category Ho$\mathcal{C}$ of a homotopical category ($\mathcal{C},\mathcal{W}$) is the formal localisation of $\mathcal{C}$ at the subcategory $\mathcal{W}$. The explicit construction of the homotopy category is as follows:
+
+	\begin{itemize}
+		\item Objects of Ho$\mathcal{C}$ are the same as $\mathcal{C}$.
+		\item All strings of compositions which contain $\xleftarrow{\text{w}}\xrightarrow{\text{w}}$ or $\xrightarrow{\text{w}}\xleftarrow{\text{w}}$ or identities pointing forward or backwards as a part of the string are equivalent to strings of compositions with the earlier substrings removed. This induces the natural equivalence relation of strings of composable arrows.
+	\end{itemize}
+\end{definition}
+
+One can simply notice that there is a natural functor $\mathcal{C} \xrightarrow{\text{L}}$ Ho$\mathcal{C}$. This functor also possesses the universal property that any other functor which inverts all morphisms in $\mathcal{W}$ (not necessarily only morphisms in $\mathcal{W}$) factors through L.
+
+An important point is that not all morphisms of $\mathcal{C}$ that become isomorphisms should be present in the subcategory $\mathcal{W}$. When this does not happen, we call the homotopical category $\mathcal{C}$ to be saturated [i.e. all morphisms whose inverse exists in Ho$\mathcal{C}$ are also present in $\mathcal{W}$].
+
+Another important point is that performing this construction on a locally small category does not ensure that it will remain a locally small category. This is simply due to the reason that the collection of objects form a class and each object has its respective equivalence class. There could be a lot of choices of a single map about which object to passthrough for each object's equivalence class. Considering the possibility that the equivalence class of an object may itself form a class. The collection of maps between any two maps can form a class. For this reason, there exists another richer localisation than the one we came up with, which is inspired from the localisation of rings, called "Calculus of Fractions" due to Pierre Gabriel, Pierre Zisman. However, I plan to delve into it just yet.
+
+Therefore, one of the problems that the model category construction solves is to keep the localisation of the category to be locally small. 
+
+We now try to study functors between Homotopical Categories which can extend to maps between the respective homotopy categories under suitable conditions on the functor itself. The condition on the functor is also natural, in the sense that it must send equivalences to equivalences ,i.e. it preserves all equivalences. We call such functors, "Homotopical Functors", by the universal property of localisation, it induces a functor between the respective homotopy categories.
+\[\begin{tikzcd}
+	{\mathcal{C}} && {\mathcal{D}} \\
+	\\
+	{Ho \mathcal{C}} && {Ho \mathcal{D}}
+	\arrow["F", from=1-1, to=1-3]
+	\arrow["{L_{\mathcal{C}}}", from=1-1, to=3-1]
+	\arrow["{L_{\mathcal{D}}}", from=1-3, to=3-3]
+	\arrow["{F'}", dashed, from=3-1, to=3-3]
+\end{tikzcd}\]
+
+It is a natural desire to study functors which are not homotopical. However, when that happens notice that $L_{\mathcal{C}}$ and $L_{\mathcal{D}}\circ F$ form a span diagram, which hints us towards looking at left and right Kan Extensions along the appropriate direction carrying the intuition that we are trying to find the best functor which approximates F while losing the least amount of information while doing it. This naturally leads to the following definition.
+
+\begin{definition}
+	A \textbf{total left derived functor} LF of a functor F between Homotopical Categories $\mathcal{C}$ and $\mathcal{D}$ is a right Kan extension $Ran_{L_{\mathcal{C}}}(L_{\mathcal{D}}\circ \mathcal{F})$:
+\end{definition}
+This also alludes to being related to derived functors in the homological algebra sense.
 
 \section{Weak Factorisation Systems}
 
