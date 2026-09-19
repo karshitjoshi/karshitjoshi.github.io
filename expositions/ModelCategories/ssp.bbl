@@ -20,6 +20,9 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Qui}
+D.~Quillen, ``Homotopical algebra,'' 1965.
+
 \bibitem{Hov}
 M.~Hovey, ``Model categories,'' 1999.
 
