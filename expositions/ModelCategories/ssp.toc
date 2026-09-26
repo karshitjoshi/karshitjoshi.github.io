@@ -3,5 +3,5 @@
 \contentsline {section}{\numberline {2}Derived Functors}{4}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Homotopical Categories and Derived Functors}{4}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Enriched Category Theory}{10}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Weak Factorisation Systems}{11}{section.3}%
-\contentsline {section}{\numberline {4}Model Categories}{11}{section.4}%
+\contentsline {section}{\numberline {3}Weak Factorisation Systems}{12}{section.3}%
+\contentsline {section}{\numberline {4}Model Categories}{12}{section.4}%

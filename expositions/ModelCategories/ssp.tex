@@ -287,6 +287,29 @@ The monoidal product is supposed to serve the composition operation as well as t
 
 The goal here is to take as much advantage of the base category structure as possible. And it turns out that in many nice categories, currying is possible and there is a parametrized adjunction between the $\times$ and the "internal hom". This alludes to the fact that such an adjunction is only possible in a category when the hom-objects of the base category lie within itself ,i.e. the base category is enriched over itself. This is a necessary but also sufficient condition for currying. We obviously cannot let go of such a nice structure, therefore we are going to introduce a definition for it.
 
+\begin{definition}
+	We call a monoidal category \textbf{closed} if each functor $-\times d:\mathcal{D} \rightarrow \mathcal{D}$ admits a right adjoint $\underline{\mathcal{D}}(d,-)$, the right adjoints in this family of parameterized adjunctions assemble in a unique way into a bifunctor.
+	\begin{center}
+		$\underline{\mathcal{D}}(-,-):\mathcal{D}^{op} \times \mathcal{D} \rightarrow \mathcal{D}$
+	\end{center}
+	such that there exists natural isomorphisms for all $u,v,w \in \mathcal{V}$
+	\begin{center}
+		$\mathcal{D}(u \times v,w) \cong \mathcal{D}(u,\underline{\mathcal{D}}(v,w))$
+	\end{center}
+\end{definition}
+
+what follows are the categories which are also called \textbf{closed symmetric monoidal categories}, which are natural to understand by now. In the special case that the monoidal product is the cartesian product(i.e. the categorical product) on $\mathcal{V}$, one says that $\mathcal{V}$ is \textbf{cartesian closed}. We now introduce a construction which is very useful later on in topology. For any cartesian closed symmetric monoidal category $(\mathcal{V},\times,\star)$, which we also suppose to be complete and cocomplete. Consider the slice category under $\star$, the terminal object of $\mathcal{V}$. It should be instantly clear what the construction is supposed to be. Let this category be $\mathcal{V}_{\star}$, otherwise known as the category of \textbf{based objects} in $\mathcal{V}$. We define the product to be the \textbf{smash product} which is the pushout square of the following kind.
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJ2IFxcc3FjdXAgdyJdLFsxLDAsInYgXFx0aW1lcyB3Il0sWzEsMSwidiBcXHdlZGdlIHciXSxbMCwxLCJcXHN0YXIiXSxbMCwxXSxbMSwyXSxbMCwzXSxbMywyXV0=
+\[\begin{tikzcd}
+	{v \sqcup w} & {v \times w} \\
+	\star & {v \wedge w}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+
+This is the natural way to define a product on this particular slice category because here we are just quotienting the edges along $\star$ in the product to a single point which can be viewed using the pushout formula or actually calculating the colimit of the diagram. This construction is associative upto isomorphism (it would be associative if the underlying monoidal category is strictly associative). Since $\mathcal{V}$ is cartesian closed, the functors $v \times -$ preserve colimits. This may allow you to consider based spaces where you might not have looked for before. At this point the point of enriched categories should be clear. We would like to makes paths in the mapping space of two objects to create homotopies and create paths between paths to create higher homotopies. This should now be clear that for homotopy theory we would like to enrich our categories over some kind of simplicial objects, perhaps simplicial sets. Although before moving into simplicial categories we shall take a look at something else before.
 \section{Weak Factorisation Systems}
 
 \section{Model Categories}
