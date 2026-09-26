@@ -13,6 +13,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tcolorbox}
 \usepackage{tikz-cd}
+\usepackage{enumitem}
 
 \colorlet{LightGray}{White!90!Periwinkle}
 \colorlet{LightOrange}{Orange!15}
@@ -59,7 +60,7 @@
 		\\ [2.0cm]
 		\HRule{1.5pt} \\
 		\LARGE \textbf{\uppercase{Introduction to Model Categories}
-		\HRule{2.0pt} \\ [0.6cm] \LARGE{10th September 2026} \vspace*{10\baselineskip}}
+		\HRule{2.0pt} \\ [0.6cm] \LARGE{INCOMPLETE} \vspace*{10\baselineskip}}
 		}
 \date{}
 \author{\textbf{Karshit Joshi} \\ 
@@ -78,9 +79,7 @@
 \section{Preliminaries}
 This is an exposition written by me to take notes of what I read about Model Categories and certain ideas that I think are very useful while reading Model Categories.Any mistakes made in this exposition is purely mine and please report them to [karshitkjoshi@cmi.ac.in].I am mostly using "Homotopical Algebra" by Daniel Quillen\cite{Qui},"Model Categories" by Mark Hovey\cite{Hov} and "Categorical Homotopy Theory" by Emily Riehl\cite{Rhl} as my primary resources to read about the topic from, and will try my best to mention any other resources that I use along the way in the bibliography.I am grateful to Chennai Mathematical Institute to expose me to the resources and wonderful people that helped me during this writing.
 
-I am very grateful to Prof. Aditya Karnataki, who encouraged me to write this exposition and introducing me to writing exposition which led me to find an appreciation for writing expositions. I am also grateful to Advait Phadnis, Shubh Sharma, Bhanu Kiran Sandepudi and Aleksandr Zakharov for giving me their free time at various ocassions to discuss questions that I came across while writing.
-% Mention Prof.Nitin Nitsure and his visit to CMI for tangent/cotangent complexes.
-
+I am very grateful to Prof. Aditya Karnataki, who encouraged me to write this exposition and introducing me to writing exposition which led me to find an appreciation for writing mathematical expositions.
 \newpage
 
 \section{Derived Functors}
@@ -91,10 +90,10 @@ A good strategy in our toolset has always been to classify objects "upto some pr
 
 Suppose we start with a category $\mathcal{C}$.We have some property $\mathcal{P}$ along which we can test our objects to see if they are "equivalent" or not.If identifying $\mathcal{P}$ on 2 different objects tells us that they have the same property.Our desire is to consider those objects to be the same.A natural way to store all of this data of identification is in a category, with the purpose that we will inherit all the data naturally by doing a construction on $\mathcal{C}$.
 
-We are now clear that we must perform construction on $\mathcal{C}$ to create a category which characterizes the data that we get from $\mathcal{P}$.There are naturally 2 ways to do this.
+We are now clear that we must perform construction on $\mathcal{C}$ to create a category which characterizes the data that we get from $\mathcal{P}$.There are naturally 2 ways to do this.\footnote{A person who already has a vague idea about infinity categories might realize that the 2 above localisations can be unified under a kind of construction that can be done in infinity categories called n-truncation. This allows to truncate all data from n and above to get rid of the precise witnesses which exhibit the homotopy between (n-1) morphisms and replace them with just existence statements}
 \begin{itemize}
 	\item Consider the objects of $\mathcal{C}$, consider the equivalence relation imposed by $\mathcal{P}$ on the collection of object of C. We quotient by the equivalence relation. We also forget all the maps between objects which were identified.The residue will turn out to be a category with a few more natural steps. This can be thought of as skeleton category of localisation given by the second point.
-	\item Consider the maps of $\mathcal{C}$, formally introduce the inverses of maps between objects, "which characterize the equivalence of $\mathcal{P}$".This just naturally forms a category once again after completing all possible compositions with the new maps.
+	\item Consider the maps of $\mathcal{C}$, formally introduce the inverses of maps between objects, "which characterize the equivalence of $\mathcal{P}$".This just naturally forms a category once again after completing all possible compositions with the new maps.\footnote{There is an interesting question for keen observers. There are 2 ways to achieve this. (1) Introduce the "abstract" formal inverses of all maps we consider weak equivalences (2) Create an equivalence relation between maps and quotient by the equivalence relation which will force certain "concrete" maps to become formal inverses of other "concrete" maps. When exactly are these constructions equivalent/isomorphic ? In some sense, the answer for why they would be equivalent is that having a left inverse upto some homotopy can make the inverse unique upto homotopy which we can test if all such inverses have a characterisation in the base category or not. I still need to know more about this though.}
 \end{itemize}
 
 Both the above ways are useful in different ways that we will explore throughout the span of this text. Notice the difference, that the first construction forgets how things are actually equivalent whereas the second does not due to the existence of all the maps which "characterize the equivalence of $\mathcal{P}$.This especially comes into the picture if you view the first construction as the manifestation of "existence of an equivalence" rather than "equivalent with the witness map", wherein the second construction is much more suited to the latter. This often comes into play when you are considering n-truncations of an infinity category which are the objects we are truly trying to study indirectly via model categories. Due to the previous reason, this also plays a significant role in homotopy type theory.[Note that the first construction is also technically inline with Leibniz equivalence of identibles which says that "if two objects have the same interactions, they are the same".i.e. Isomorphisms should not exist as objects, instead all isomorphisms must be equalities. This plays a major role in homotopy type theory.]
@@ -153,9 +152,140 @@ We now try to study functors between Homotopical Categories which can extend to 
 It is a natural desire to study functors which are not homotopical. However, when that happens notice that $L_{\mathcal{C}}$ and $L_{\mathcal{D}}\circ F$ form a span diagram, which hints us towards looking at left and right Kan Extensions along the appropriate direction carrying the intuition that we are trying to find the best functor which approximates F while losing the least amount of information while doing it. This naturally leads to the following definition.
 
 \begin{definition}
-	A \textbf{total left derived functor} LF of a functor F between Homotopical Categories $\mathcal{C}$ and $\mathcal{D}$ is a right Kan extension $Ran_{L_{\mathcal{C}}}(L_{\mathcal{D}}\circ \mathcal{F})$:
+	A \textbf{total left derived functor} LF of a functor F between Homotopical Categories $\mathcal{C}$ and $\mathcal{D}$ is a right Kan extension $Ran_{L_{\mathcal{C}}}(L_{\mathcal{D}}\circ \mathcal{F})$ [We shall also sometimes refer the $Ran_{L_{\mathcal{C}}}(L_{\mathcal{D}}\circ \mathcal{F})\circ L_{\mathcal{C}}$ as the total left derived functor with an equivalent universal property]
 \end{definition}
-This also alludes to being related to derived functors in the homological algebra sense.
+
+This also alludes to being related to derived functors in the homological algebra sense. We are eventually heading towards that direction. Now we introduce the definition of a left derived functor which won't just yet make any sense but its better to go through the definition first and then realise it.
+
+\begin{definition}
+	A \textbf{left derived functor} of $F:\mathcal{C} \rightarrow \mathcal{D}$ is a homotopical functor $\mathcal{L}F: \mathcal{M} \rightarrow \mathcal{N}$ along with a natural transformation $\tau:\mathcal{L}F \Rightarrow F$ such that $L_{\mathcal{D}}\tau: \tau \circ \mathcal{L}F \Rightarrow L_{\mathcal{D}} \circ F$. the last operation is also better known as "whiskering" ,i.e. left derived functor is a direct lift of the total left derived functor along the localisation functor.
+\end{definition}
+
+The total left derived functor is essentially nothing but the induced functor between the homotopy categories from the functor between the homotopical categories. In classical notion, this will only occur when the functor respects the weak equivalences that we have chosen ,i.e. the functor is well-defined on the isomorphism classes of objects equivalently F is not a homotopy functor. The main problem is that most functors that we are aware of ,i.e. $Hom(-,A)$, $-\otimes A $ do not respect the quasi-isomorphisms in the category chain complexes. This tells you that a total left derived functor. Now, borrowing the intuition for a Kan Extension, One can realise that this is precisely the problem that we would like to solve which is why the goal is to find the total left derived functor ,i.e. the best approximation of F. We now introduce some more definitions which are directly motivated from the topology.
+
+\begin{definition}
+	A \textbf{left deformation} on a homotopical category $\mathcal{C}$ consists of an endofunctor $\mathcal{Q}$ together with a natural "weak equivalence", not natural isomorphism instead its a natural isomorphism as a homotopical endofunctor on the homotopy category $q: \mathcal{Q} \Leftrightarrow 1$.
+\end{definition}
+
+We are already tip-toeing into the deep waters of model categories, as we go into the following example which considers the weak factorisation system. If $\mathcal{M}$ is a model category with a functorial cofibration-trivial fibration factorisation, then the action of this factorisation on arrows of the form $\phi \rightarrow x$ produces a functor $\mathcal{Q}$ whose image lands in the subcategory of cofibrant objects with natural weak equivalence $q_x: Qx \sim x$. I just copied the previous example verbatim from Riehl's book but I believe this is an important example to look at.
+
+In the above example, we use a weak factorisation system to break any map into a cofibration and weakly equivalent fibration which allows us to find an object $q_x$ for each $x$ for which $\phi \rightarrow x$ is a cofibration and it is equivalent to $x$ which will constitute a larger functor $q: x \sim q_x$ sending the category to its subcategory of cofibrant objects/replacements. As it will soon turn out that such replacements are of extreme importance to create what are homotopy limit/colimits which are grave importance to work in the homotopy category, which in most cases does not even have all limits and colimits. A reasonable question to ask is that why $q_x$ is called a cofibrant object/replacement even though its weak equivalence with $x$ is a fibration. There is a very important reasoning behind this. It is for, How exactly do we deal with extension/lifting problems ?
+
+Many times in mathematics, again and once again you must encounter this precise diagram.
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkMiXSxbMiwyLCJEIl0sWzAsMV0sWzIsM10sWzEsMywiIiwxLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzAsMiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwxLCIiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	A && B \\
+	\\
+	C && D
+	\arrow[from=1-1, to=1-3]
+	\arrow[hook, from=1-1, to=3-1]
+	\arrow[two heads, from=1-3, to=3-3]
+	\arrow[dashed, from=3-1, to=1-3]
+	\arrow[from=3-1, to=3-3]
+\end{tikzcd}\]
+
+When does exactly such a lift/extension [dotted arrow] exist such that both the triangles commute ? Often times, a lifting or extension problem can be precisely phrased in this way given the existence of an initial and a terminal object.
+
+\[\begin{tikzcd}
+	\phi && B \\
+	\\
+	C && D
+	\arrow[from=1-1, to=1-3]
+	\arrow[hook, from=1-1, to=3-1]
+	\arrow[two heads, from=1-3, to=3-3]
+	\arrow[dashed, from=3-1, to=1-3]
+	\arrow[from=3-1, to=3-3]
+\end{tikzcd}\]
+\begin{center}
+	Lifting Problem
+\end{center}
+\[\begin{tikzcd}
+	A && B \\
+	\\
+	C && \{\star\}
+	\arrow[from=1-1, to=1-3]
+	\arrow[hook, from=1-1, to=3-1]
+	\arrow[two heads, from=1-3, to=3-3]
+	\arrow[dashed, from=3-1, to=1-3]
+	\arrow[from=3-1, to=3-3]
+\end{tikzcd}\]
+\begin{center}
+	Extension Problem
+\end{center}
+
+And it is due to the prominent of these problems which are solved by cofibrant objects because the property of $\phi \rightarrow C$ being a cofibration is precisely that it lifts all maps against any fibration $B \rightarrow D$. This solves the lifting problem for any object $C$ because as long as $B \rightarrow D$ is a fibration, in the homotopy category I can replace C with $q_C$ and lift any map $q_C \rightarrow D$ without any worries. A dual situation will occur when weak factorisation system is trivial-cofibrations and fibrations. Wherein you will be replacing objects with fibrant replacements. This is precisely why a Weak Factorisation System in ingrained into the definition of a Model Category because this allows us to have some level of control over the maps in the homotopy category [while obviously increasing a lot of conditions on the original category like i.e. there existing a weak factorisation system in the first place] and evidently enough, this enough for us to get limits and colimits of diagrams in the homotopy category which inturn allows us to actually compute legible objects which are significant to us. But given a significant idea of how we are going to solve our problems, we leave this here for the reader to digest this situation as this is one of the major parts of model categories which build the bigger picture.Instead we try to bring back our focus onto realising the current definitions with our knowledge from Homological Algebra.\footnote{I insist the reader to atleast read the definition of a Weak Factorisation System at this point in time.}
+
+We know that the category of left R-modules have the following property: for nay R-module A, there exists a projective module P together with an epimorphism $P \twoheadrightarrow A$. This way, repeating the procedure we get the \textbf{projective resolution}, an acyclic (except in degree zero) bounded-below chain complex of projectives that maps quasi-isomorphically to the chain complex concentrated in degree 0 at module A. Making a specific natural choice of projective resolution (free resolution), gives us a left deformation for the homotopical category of tbe homotopical category of bounded-below chain complexes where the weak equivalences are the quasi-isomorphisms.Dually, any R-module embeds into an injective module, repeating that gives us injective resolutions. Similarly, one can arrive at right deformation on the category of bounded-below cochain complexes.
+
+Any additive functor F from the category of R-modules to category of S-modules induces obvious functors between the respective chain complex categories. These functors preserve the chain homotopy equivalences by very easy verification.But, they do not preserve quasi-isomorphisms which are the actual weak-equivalences that we would like to look at because they are completely faithful to homology/cohomology groups. Although, for projective resolutions, any chain complex made of projective objects, a quasi-isomorphism entails a chain homotopy equivalence which is preserved by $F_{\bullet}$. The dual versions of the above statements also follows correctly. This also fits into the previous picture that we are essentially taking a cofibrant replacement in the category of chain complexes and since F preserves the quasi-isomorphisms in the subcategory of projective chain complexes. We can get a total derived functor between the respective homotopy category chain complexes.
+
+The classically regarded as the left derived functor of $F:\mathbf{Mod}_R \rightarrow \mathbf{Mod}_S$ can now be viewed as below using what we have realised up until now:
+\begin{center}
+	$\mathbf{Mod}_R \xrightarrow{deg_0} \mathbf{Ch}_{\geq0}(R) \rightarrow \mathbf{Ch}_{\geq0}(S) \xrightarrow{H_0} \mathbf{Mod}_S$
+\end{center}
+
+which takes the cofibrant replacement of an R-module A, applies $F_{\bullet}$, and then computes the 0th homology. Please note that it is very possible that the natural deformation functors does not exist for your abelian category, in which case also this procedure will pass through just by knowing that there is a weak factorisation system on the category. Also note that if you do not have such a natural deformation functor then you will not get a derived functor but instead a total derived functor due to the reason that a person now must make a choice of cofibrant replacement for any object rather than there being a natural choice to pick for each choice.
+
+At this point I expect the reader to understand that why are does one care about fibrations, cofibrations, weak equivalences, weak factorisation systems, fibrant and cofibrant replacements, which are some of the most important objects in understanding/dealing with model categories. Now, it is an adequate point to take a look into homotopy (co)limits and how are they exactly constructed while expecting the reader to have realised the importance of knowing how to reliably construct limits/colimits in the homotopy category and why will they be very useful. Now we shall go into a bit of enriched category theory as it is useful in model categories framework, calculating homotopy (co)limits aswell as understanding models of infinity categories.
+
+\subsection{Enriched Category Theory}
+
+The core idea behind enriched category theory is that to try to localise a category, you must invert maps which in turn force you to deal with the hom-sets or in many cases hom-objects which now have more structure because our desire to localise. Therefore, to keep track of data as it behaves in the ambient category but also be able to see the consequences of localisation as play around with hom-objects which is precisely what enriching a category is all about, replacing hom-sets with hom-objects in some other category D.
+
+Precisely speaking,  we are going make our hom-objects precisely to be spaces/topological spaces which carry the information of homotopies and higher homotopies in the terms of paths, paths between paths, paths between paths between paths, ..... up until infinity (i.e. simplicial set, which can also be realised to be a CW-complex).
+
+\begin{definition}
+The base category over which we enrich must be a \textbf{symmetric monoidal category} $(V,\times,\star)$. Here V is an ordinary category. $\times:V \times V \rightarrow V$ is a bifunctor and $\star$ is the unit object. It is also equipped with the following natural transformations.
+\begin{center}
+	$v \times w \cong w \times v$ , $u \times (v \times w) \cong (u \times v) \times w$ , $\star \times v \cong v \cong v \times \star$
+\end{center}
+We also do not have to worry about the associativity holding at higher levels.
+\end{definition}
+
+The monoidal product is supposed to serve the composition operation as well as the unit is supposed to be the initial object in the category V to point out the identity map for each endo-object for each object.
+
+\begin{definition}
+	A $V$-category $\underline{\mathcal{D}}$ consists of 
+	\begin{itemize}[noitemsep, topsep=0pt]
+		\item a collection of objects, i.e. x,y,z $\in$ $\underline{\mathcal{D}}$ 
+		\item for each pair x,y $\in$ $\underline{\mathcal{D}}$, a hom-object $\underline{\mathcal{D}}(x,y)$ $\in$ $V$.
+		\item for each x $\in$ $\underline{\mathcal{D}}$, a morphism $id_x : \star \rightarrow \underline{\mathcal{D}}(x,x) \in V$.
+		\item for each triple x,y,z $\in$ $\underline{\mathcal{D}}$, a morphism $\circ : \underline{\mathcal{D}}(y,z) \times \underline{\mathcal{D}}(x,y) \rightarrow \underline{\mathcal{D}}(x,z)$ in $V$.
+	\end{itemize}
+	such that the following diagrams commute for all $x,y,z,w \in \underline{\mathcal{D}}$:
+
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHp3LHkpIFxcdGltZXMgXFx1bmRlcmxpbmV7XFxtYXRoY2Fse0R9fSh5LHopIFxcdGltZXMgXFx1bmRlcmxpbmV7XFxtYXRoY2Fse0R9fSh4LHkpIl0sWzEsMCwiXFx1bmRlcmxpbmV7XFxtYXRoY2Fse0R9fSh6LHcpIFxcdGltZXMgXFx1bmRlcmxpbmV7XFxtYXRoY2Fse0R9fSh4LHopIl0sWzEsMSwiXFx1bmRlcmxpbmV7XFxtYXRoY2Fse0R9fSh4LHcpIl0sWzAsMSwiXFx1bmRlcmxpbmV7XFxtYXRoY2Fse0R9fSh5LHcpIFxcdGltZXMgXFx1bmRlcmxpbmV7XFxtYXRoY2Fse0R9fSh4LHkpIl0sWzAsMSwiMSBcXHRpbWVzIFxcY2lyYyJdLFsxLDIsIlxcY2lyYyJdLFszLDIsIlxcY2lyYyIsMl0sWzAsMywiXFxjaXJjIFxcdGltZXMgMSIsMl1d
+\[\begin{tikzcd}
+	{\underline{\mathcal{D}}(zw,y) \times \underline{\mathcal{D}}(y,z) \times \underline{\mathcal{D}}(x,y)} & {\underline{\mathcal{D}}(z,w) \times \underline{\mathcal{D}}(x,z)} \\
+	{\underline{\mathcal{D}}(y,w) \times \underline{\mathcal{D}}(x,y)} & {\underline{\mathcal{D}}(x,w)}
+	\arrow["{1 \times \circ}", from=1-1, to=1-2]
+	\arrow["{\circ \times 1}"', from=1-1, to=2-1]
+	\arrow["\circ", from=1-2, to=2-2]
+	\arrow["\circ"', from=2-1, to=2-2]
+\end{tikzcd}\]
+
+% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHgseSkgXFx0aW1lcyBcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHgseCkiXSxbMSwxLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHgseSkiXSxbMCwwLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHgseSkgXFx0aW1lcyBcXHN0YXIiXSxbMCwxLCJcXGNpcmMiXSxbMiwwLCIxIFxcdGltZXMgaWRfeCJdLFsyLDEsIlxcY29uZyIsMl1d
+\[\begin{tikzcd}
+	{\underline{\mathcal{D}}(x,y) \times \star} && {\underline{\mathcal{D}}(x,y) \times \underline{\mathcal{D}}(x,x)} \\
+	& {\underline{\mathcal{D}}(x,y)}
+	\arrow["{1 \times id_x}", from=1-1, to=1-3]
+	\arrow["\cong"', from=1-1, to=2-2]
+	\arrow["\circ", from=1-3, to=2-2]
+\end{tikzcd}\]
+
+% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHkseSkgXFx0aW1lcyBcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHgseSkiXSxbMSwxLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHgseSkiXSxbMCwwLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7RH19KHgseSkgXFx0aW1lcyBcXHN0YXIiXSxbMCwxLCJcXGNpcmMiXSxbMiwwLCJpZF95IFxcdGltZXMgMSJdLFsyLDEsIlxcY29uZyIsMl1d
+\[\begin{tikzcd}
+	{\underline{\mathcal{D}}(x,y) \times \star} && {\underline{\mathcal{D}}(y,y) \times \underline{\mathcal{D}}(x,y)} \\
+	& {\underline{\mathcal{D}}(x,y)}
+	\arrow["{id_y \times 1}", from=1-1, to=1-3]
+	\arrow["\cong"', from=1-1, to=2-2]
+	\arrow["\circ", from=1-3, to=2-2]
+\end{tikzcd}\]
+
+\end{definition}
+
+The goal here is to take as much advantage of the base category structure as possible. And it turns out that in many nice categories, currying is possible and there is a parametrized adjunction between the $\times$ and the "internal hom". This alludes to the fact that such an adjunction is only possible in a category when the hom-objects of the base category lie within itself ,i.e. the base category is enriched over itself. This is a necessary but also sufficient condition for currying. We obviously cannot let go of such a nice structure, therefore we are going to introduce a definition for it.
 
 \section{Weak Factorisation Systems}
 
