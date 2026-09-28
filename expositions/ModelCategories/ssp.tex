@@ -310,6 +310,50 @@ what follows are the categories which are also called \textbf{closed symmetric m
 \end{tikzcd}\]
 
 This is the natural way to define a product on this particular slice category because here we are just quotienting the edges along $\star$ in the product to a single point which can be viewed using the pushout formula or actually calculating the colimit of the diagram. This construction is associative upto isomorphism (it would be associative if the underlying monoidal category is strictly associative). Since $\mathcal{V}$ is cartesian closed, the functors $v \times -$ preserve colimits. This may allow you to consider based spaces where you might not have looked for before. At this point the point of enriched categories should be clear. We would like to makes paths in the mapping space of two objects to create homotopies and create paths between paths to create higher homotopies. This should now be clear that for homotopy theory we would like to enrich our categories over some kind of simplicial objects, perhaps simplicial sets. Although before moving into simplicial categories we shall take a look at something else before.
+
+There is a natural way to define a "good" functor between symmetric monoidal category, i.e. it preserves the symmetric monoidal structure in the sense that we describe below.
+
+\begin{definition}
+	A functor $F:\mathcal{V} \rightarrow \mathcal{U}$ between symmetric monoidal categories $(\mathcal{V},\times,\star)$ and $(\mathcal{U},\otimes,\mathbb{I})$ is \textbf{lax monoidal} if there exist associative and unital natural transformations 
+	\begin{center}
+		$\mathbb{I} \rightarrow F(\star)$ and $Fv \otimes Fv' \rightarrow F(v \times v')$ 
+	\end{center}
+\end{definition}
+
+One would have expected that the above natural transformation is a natural isomorphism instead. While that is a completely valid way to think, infact there is indeed a definition specifically for them aswell but the above definition also serves the purpose of change of base functors which are of great importance while learning enriched category theory. We shall mention the other variants of the definition down below.
+
+\begin{itemize}
+	\item We call a functor \textbf{strong monoidal} if the above natural transformations become natural isomorphisms.
+	\item We call a functor \textbf{strict monoidal} if the above natural transformations just become equalities or identities.
+	\item We call a functor \textbf{oplax monoidal} if the direction of natural transformations in the definition of lax monoidal functors is reversed.
+\end{itemize}
+
+We now delve into the usage of lax monoidal functors that we mentioned before, Change of Base functors.
+
+\begin{proposition}
+	In the presence of any lax monoidal functor $F:\mathcal{V} \rightarrow \mathcal{U}$, any $\mathcal{V}-category$ has an associated $\mathcal{U}-category$ with the same objects.
+\end{proposition}
+
+The proof really just follows simply from trying to find the object in $\mathcal{U}$ for any string of operations in $\mathcal{V}$ using the natural transformations given by the lax monoidal functor which essentially completes the proof by using the coherence conditions on $\mathcal{V}$ first and then $\mathcal{U}$. This can be used to lose the enrichment structure of any $\mathcal{V}-category$, i.e. change the base of the category from $\mathcal{V}$ to \textbf{Set}. Using the proposition for this specific case, we get what is called "losing" the enrichment for an enriched category. The lax monoidal functor that we use to achieve this is the $\mathcal{V}(\star,-)$.
+
+\begin{definition}
+	The \textbf{underlying category} $\mathcal{C}_0$ of a $\mathcal{V}-category$ $\underline{\mathcal{C}}$ has the same objects as before but has the hom-sets as
+	\begin{center}
+		$\mathcal{C}_0(x,y) = \mathcal{V}(\star,\underline{\mathcal{C}}(x,y))$
+	\end{center}
+\end{definition}
+
+One can now reasonably think about closed monoidal categories, when you lose the enrichment on a self-enriched category, you would just get the same category back with hom-sets instead of hom-objects assuming the category was locally-small. We shall now talk about enriched functors and enriched natural transformations a little bit before going into the meat of the situation that is the simplicial category.
+
+\begin{definition}
+	A $\mathcal{V}$-functor $F:\underline{\mathcal{C}} \rightarrow \underline{\mathcal{D}}$ btween $\mathcal{V}$-categories is given by an object map between the enriched categories and a map between the base categories of the following form
+	\begin{center}
+		$\underline{\mathcal{C}}(x,y) \xrightarrow{F_{x,y}} \underline{\mathcal{D}}(Fx,Fy)$
+	\end{center}
+\end{definition}
+
+I hope this gives you the suitable style in which enriched category theory is defined. You can go on to define enriched natural transformations, enriched Yoneda lemma, enriched adjunctions and so on but we shall stop here and move onto a much more important topic of Simplicial Categories.
+
 \section{Weak Factorisation Systems}
 
 \section{Model Categories}
