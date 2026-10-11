@@ -77,7 +77,7 @@
 % ------------------------------------------------------------------------------
 
 \section{Preliminaries}
-This is an exposition written by me to take notes of what I read about Model Categories and certain ideas that I think are very useful while reading Model Categories.Any mistakes made in this exposition is purely mine and please report them to [karshitkjoshi@cmi.ac.in].I am mostly using "Homotopical Algebra" by Daniel Quillen\cite{Qui},"Model Categories" by Mark Hovey\cite{Hov} and "Categorical Homotopy Theory" by Emily Riehl\cite{Rhl} as my primary resources to read about the topic from, and will try my best to mention any other resources that I use along the way in the bibliography.I am grateful to Chennai Mathematical Institute to expose me to the resources and wonderful people that helped me during this writing.
+This is an exposition written by me to take notes of what I read about Model Categories and certain ideas that I think are very useful while reading Model Categories.Any mistakes made in this exposition is purely mine and please report them to [karshitkjoshi@cmi.ac.in].I am mostly using "Homotopical Algebra" by Daniel Quillen\cite{Qui},"Model Categories" by Mark Hovey\cite{Hov} and "Categorical Homotopy Theory" by Emily Riehl\cite{Rhl} as my primary resources to read about the topic from, and will try my best to mention any other resources that I use along the way in the bibliography.(11th October 2026) I have decided that I shall write about infinity categories and its relation to topological spaces along with model categories and also focus on quasi-category model of infinity category, for which my primary resource is this playlist of this course\cite{High} and "A short course on Infinity Categories" by Moritz Groth\cite{Short}.I am grateful to Chennai Mathematical Institute to expose me to the resources and wonderful people that helped me during this writing
 
 I am very grateful to Prof. Aditya Karnataki, who encouraged me to write this exposition and introducing me to writing exposition which led me to find an appreciation for writing mathematical expositions.
 \newpage
@@ -360,6 +360,131 @@ Any simplicial category $\underline{\mathcal{C}}$ gives a simplicial object in \
 \section{Weak Factorisation Systems}
 
 \section{Model Categories}
+
+\section{Infinity Categories}
+
+We first deal with size issues to resolve paradoxes which occur without treating them, like the Russell's Paradox. Our solution to this is going to be Grothendiecks' Universes. A Grothendieck Universe $\mathcal{U}$ simply means that its subsets and elements constitute the model for sets as we know them. More specifically, we call the elements of $\mathcal{U}$ "small sets". Thus when we take the set of all "small sets" still is a set but is no longer a "small set" but rather a "large set". The categories that we will not be a locally small categories which is precisely saying that the object and morphism set of the category are not necessarily, "small sets". Whenever we write $\textbf{Set}$, we mean the category of Sets. Now, we jump straight into the definition of an infinity category.
+
+\begin{definition}
+	An $\infty$-category is a (large) simplicial set $\mathcal{C}$, such that it has the weak inner Kan Complex condition (the uniqueness is weakened to an existence excluding outer horns) ,i.e. there always exists an extension of the following map.\footnote{Please note that this is the definition of a ($\infty$,1)-category for those who are familiar with the notation.}
+
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHdlZGdlXm5faSJdLFsxLDAsIlxcbWF0aGNhbHtDfSJdLFswLDEsIlxcRGVsdGFebiJdLFswLDFdLFswLDJdLFsyLDEsIlxcZm9yYWxsIGksMDxpPG4iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	{\wedge^n_i} & {\mathcal{C}} \\
+	{\Delta^n}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow["{\forall i,0<i<n}"', dashed, from=2-1, to=1-2]
+\end{tikzcd}\]
+\end{definition}
+
+This is essentially the to preserve the infinity categorical data in terms of nerves of higher dimensional categories. Imagine it like this, we have the following data, objects, morphisms, homotopies between morphisms, homotopies between homotopies, ... what we want, is to encode this structure into a way such that we have a singular framework which we can fit any infinity category into. The solution we are using is to collect all objects into 0-simplices, all morphisms into 1-simplices, all homotopies into 2-simplices, all homotopies between homotopies into 3-simplices, ... this retains the information of homotopy as, if a particular simplex is filled then there is a homotopy that we can witness which makes 2 maps equivalent. Here, the composition of paths is just following the first 1-simplex and then the next one, which is not exactly equal to the composite, but there exists a homotopy between them which makes them equivalent\footnote{This is precisely why the uniqueness statement is replaced by an existence statement purely because there is not a paramatrisation of composition of path, therefore what we mean to say is that any paramatrisation of the path that you pick are equivalent which required the Kan Horn Extension condition to weaken to an existence rather than a uniqueness because there may exist a ton of different paramatrisations which are essentially just equivalent.}. In this light, the above definition should now make sense. Not only that but if you take $n=1$ and both the zero-simplices to be the same object, then that gives us the existence of identities for each object (in similar fashion, we obtain the identities for any $n$-homotopy). Not that we do not require precisely the condition that identities should work as identites but rather we consider the extension itself to work the way identities are supposed to work for us.
+
+\begin{definition}
+	A functor between $\infty$-categories is just a simplicial map.
+\end{definition}
+
+Now, we shall give the definition of when exactly are 2 maps homotopic.
+
+\begin{definition}
+	Two maps $f,g$ are homotopic if there exists 2-simplex s.t its 0th boundary is f, and 1st boundary is g, or vice versa while the last one is the respective identity.
+	There is indeed a dual equivalent definition to this which can be used in various scenarios ,i.e. thre exists a 2-simplex s.t its 2nd boundary is f, and 1st boundary is g, or vice versa while the last one is the respective identity. Note that this defines an equivalence relation.
+\end{definition}
+
+If one correctly understands the above definitions then they can accurately predict that the Singular Set of a Kan Complex (by singular set, I mean the simplicial set which generates the singular homology chain of any complex) is also an $\infty$-category but also an $\infty$-groupoid because the outer horn extension conditions will precisely give us the existence of the inverses for each map and homotopy.
+
+\begin{definition}
+	A composition of two maps $f,g$ is just the extension of a (2,1)-horn wherein 0th boundary is f and 2nd boundary is g.
+\end{definition}
+
+I hope you saw this coming. Now we will go on to remind ourselves of the definition of the mapping space of 2 simplicial sets which is of great importance as it is exactly what a functor category is desired to be under some asssumptions.
+
+\begin{definition}
+	Let $\mathcal{C},\mathcal{D}$ be simplicial sets, then $Fun(\mathcal{C},\mathcal{D})$ is also a simplicial set with $Fun(\mathcal{C},\mathcal{D})_n =$ set of all simplicial maps from $\mathcal{C} \times \Delta^n \rightarrow \mathcal{D}$.
+\end{definition}
+
+One can imagine the above definition to work in the form of maps from $\mathcal{C} \rightarrow \mathcal{D}$ be points and the natural transformations be edges and we are trying to give simplicial structure by collecting all $\Delta^n$ shaped collection of maps along with their respective natural transformations, ... into a set. The boundary maps are also the obvious boundary maps, just take the boundary of the $\Delta^n$ and retain information corresponding to that face and natural transformations, ... while forgetting the information corresponding to the rest of the faces. Now, we shall explore when exactly is this mapping space an infinity-category and the answer is ... when D is an infinity category.
+
+\begin{proposition}
+	If $\mathcal{C}$ is a simplicial set and $\mathcal{D}$ is an infinity category. Then $Fun(\mathcal{C},\mathcal{D})$ is also an infinity category.(rather it is an infinity groupoid)\footnote{For those who concern themselves with this more seriously, the functor category of 2 ($\infty$,n)-categories is a ($\infty$,n-1)-category. Please note that (in the case of ($\infty$,1)-category) this is essentially just moving one level up, i.e. the morphisms are points, natural transformations are maps along with the homotopies, ... but when we say it is a groupoid, we do not mean that all natural transformations are a natural isomorphism, rather it just means that all homotopies which witness the commutativity of naturality squares in the natural transformation are invertible, which is just reflective of the fact that all homotopies are invertible in $\mathcal{D}$. This is a subtle point.}
+\end{proposition}
+
+We now consider an equivalence between infinity categories.
+
+\begin{definition}
+	$f:\mathcal{C} \rightarrow \mathcal{D}$ is an equivalence if there exists a $g:\mathcal{D} \rightarrow \mathcal{D}$ along with natural isomorphisms such that $fg \cong \mathbf{1}_{\mathcal{D}}$ and $gf \cong \mathbf{1}_{\mathcal{C}}$.
+\end{definition}
+
+Now, we would like to develop the alternative characterisation of an equivalence via a functor being essentially surjective and fully faithful, but that is not as easy to implement because while our intuition is right in the sense of fixing an equivalent object, morphism, homotopy, ... to its corresponding object, morphism, homotopy, ... in our source category. We must first fix this into a known framework of simlicial set first instead of giving infinite number of criterions in our definition. Hence, we will have to discuss what precisely is the mapping space between 2 objects in an infinity category.
+
+\begin{definition}
+	Let $a,b \in \mathcal{C}$, we define the mapping space of all functions from a to b to be the following pullback.
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJNYXBfe1xcbWF0aGNhbHtDfX0oYSxiKSJdLFsxLDAsIkZ1bihcXERlbHRhXjEsXFxtYXRoY2Fse0N9KSJdLFswLDEsIlxcRGVsdGFeMCJdLFsxLDEsIlxcbWF0aGNhbHtDfSBcXHRpbWVzIFxcbWF0aGNhbHtDfSJdLFswLDFdLFswLDJdLFsyLDMsIlxcc3RhciBcXG1hcHN0byAoYSxiKSIsMl0sWzEsMywiZiBcXG1hcHN0byAoXFxwYXJ0aWFsXzAoZiksXFxwYXJ0aWFsXzEoZikpIl1d
+\[\begin{tikzcd}
+	{Map_{\mathcal{C}}(a,b)} & {Fun(\Delta^1,\mathcal{C})} \\
+	{\Delta^0} & {\mathcal{C} \times \mathcal{C}}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow["{f \mapsto (\partial_0(f),\partial_1(f))}", from=1-2, to=2-2]
+	\arrow["{\star \mapsto (a,b)}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+\end{definition}
+
+One can easily notice the simplicial structure on $Map_{\mathcal{C}}(a,b)$ which is basically just points being maps from a to b, homotopies between maps being 1-simplicies, homotopies between homotopies being 2-simplices, ... but if $\mathcal{C}$ is just an infinity category then $Map_{\mathcal{C}}(a,b)$ is just an infinity groupoid because all homotopies in $\mathcal{C}$ are invertible ,i.e. it is a Kan Complex. Another simple but powerful observation that they make in the lecture is that $\pi_0(Map_{\mathcal{C}}(a,b))$ is precisely the equivalence classes of maps under the homotopic equivalence relation\footnote{This is an equivalence relation only because $\mathcal{C}$ is an $(\infty,1)$-category, i.e. all homotopies are invertible.}. Now, we are capable to define what exactly are fully faithful infinity functors.
+
+\begin{definition}
+	$f:\mathcal{C} \rightarrow \mathcal{D}$ is \textbf{Fully Faithful} if $Map_{\mathcal{C}}(a,b) \rightarrow Map_{\mathcal{D}}(F(a),F(b))$ are homotopy equivalent for all $a,b \in \mathcal{C}$.
+\end{definition}
+
+\begin{definition}
+	$f:\mathcal{C} \rightarrow \mathcal{D}$ is \textbf{Essentially Surjective} if for every $d\in \mathcal{D}$, there exists a $c \in \mathcal{C}$ such that $d \cong F(c)$.
+\end{definition}
+
+When both of the above criterions are true, what we get is a a criterion of when exactly is a functor an equivalence\footnote{Thinking about equivalence, a person might think of how does one formulate adjunctions in the language of infinity categories and although we might see this ahead, I believe it is just a pair of opposite facing functors and using the initial object in the comma category to get the units and counits of the adjunction. This essentially solves the same problem as before that we would like to not have infinite number of criterions in our definitions due to the existence of higher homotopies.}.
+
+\begin{proposition}
+	A functor is an equivalence if and only if it is \textbf{Fully Faithful} and \textbf{Essentially Surjective}.
+\end{proposition}
+
+We shall now define what are subcategories of infinity categories and it is essentially the same notion as regular category theory of closing a subset of objects and maps under compositions.
+
+\begin{definition}
+	Given $S \subset \mathcal{C}_0$ then we define $\mathcal{C_S} \subset \mathcal{C}$ consisting of all simplicies with all vertices in $S$. This will result in an infinity category.
+\end{definition}
+
+We now try to revisit the idea of composition in the light of the definition of mapping spaces and what we shall realise is that composition is a mp between mapping spaces. We had before realised that composition of 2 maps is essentially just a 2-horn being filled which gives us the 2-simplex. But, the mapping spaces are filled with points which correspond to maps. Thus, we really want to paramatrise each 2-simplex in a way just that it becomes an element of a mapping space such that we are able to compose 2 mapping spaces. We can bring this intuition to life with the following definition.
+
+\begin{definition}
+	Fix any $a,b,c \in \mathcal{C}$, the following pullback is the composition mapping space of $a,b,c$.
+
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJNYXBfe1xcbWF0aGNhbHtDfX0oYSxiLGMpIl0sWzEsMCwiRnVuKFxcRGVsdGFeMixcXG1hdGhjYWx7Q30pIl0sWzAsMSwiXFxEZWx0YV4wIl0sWzEsMSwiXFxtYXRoY2Fse0N9IFxcdGltZXMgXFxtYXRoY2Fse0N9IFxcdGltZXMgXFxtYXRoY2Fse0N9Il0sWzAsMV0sWzAsMl0sWzIsMywiXFxzdGFyIFxcbWFwc3RvIChhLGIsYykiLDJdLFsxLDMsImYgXFxtYXBzdG8gKGYoMCksZigxKSxmKDIpKSJdXQ==
+\[\begin{tikzcd}
+	{Map_{\mathcal{C}}(a,b,c)} & {Fun(\Delta^2,\mathcal{C})} \\
+	{\Delta^0} & {\mathcal{C} \times \mathcal{C} \times \mathcal{C}}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow["{f \mapsto (f(0),f(1),f(2))}", from=1-2, to=2-2]
+	\arrow["{\star \mapsto (a,b,c)}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{proposition}
+	$Map_{\mathcal{C}}(a,b,c)$ is a Kan Complex(aka Infinity Groupoid) and $\partial_1(Map_{\mathcal{C}}(a,b,c)) = Map_{\mathcal{C}}(a,c)$. This should hint towards the other restriction map as it is a direct paramatrisation of 2-simplices made by horn filling of composable maps. Although a very important point is that in this light, composition itself becomes a map by considering the inverse of the left map in the following diagram\footnote{This could have been guessed with a closer look into how composition works in infinity categories :P, silly me.}.
+
+\begin{center}
+	$Map_{\mathcal{C}}(a,b) \times Map_{\mathcal{C}}(b,c) \xleftarrow{\sim} Map_{\mathcal{C}}(a,b,c) \xrightarrow{\partial_1} Map_{\mathcal{C}}(a,c)$
+\end{center}
+\end{proposition}
+
+Now, we shall try to work with the "category of spaces" wherein the spaces for us are precisely Kan Complexes. The reasoning of why we call this categoyr of spaces is simply that we know that any topological space can be reduced to a CW-Complex as far as the information of homotopy groups is concerned but the structure of a CW-Complex itself can be reduced to a Simplicial Set structure using the Singular Set Functor (the functor on which the free abelian groups are generated to create the Singular Chain Functor). This will result in a Kan Complex always. Hence, studying the category of all Kan Complexes is equivalent to studying CW-Complexes and thus homotopy groups of any Topological Space. The category of spaces is also going to be an infinity category ,i.e. it will be enriched over simplicial sets which are going to be infinity groupoids because all homotopies are going to be invertible, note that this is just a shadow of the structure of homotopy and homotopy equivalences derived from the category of Topological Spaces. It is in this precise way that the "category of spaces" is going to be an infinity category because we know the category of topological spaces itself is an infinity category. We call this category spaces, \textbf{Kan}.
+
+\begin{definition}
+	Simplicial Set S. Define
+	$S_n = Fun(\Delta^n,\textbf{Kan})$
+	i.e. 0-simplices, Kan Complexes and 1-simplices, Maps between Kan Complexes and 2-simplices, Homotopies between Maps and ..., this makes S into an infinity category which is of our main interest
+\end{definition}
+
 
 \newpage
 % ------------------------------------------------------------------------------

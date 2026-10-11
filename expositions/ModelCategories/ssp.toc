@@ -5,3 +5,4 @@
 \contentsline {subsection}{\numberline {2.2}Enriched Category Theory}{10}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Weak Factorisation Systems}{13}{section.3}%
 \contentsline {section}{\numberline {4}Model Categories}{13}{section.4}%
+\contentsline {section}{\numberline {5}Infinity Categories}{13}{section.5}%
