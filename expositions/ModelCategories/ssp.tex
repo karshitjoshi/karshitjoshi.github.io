@@ -355,11 +355,31 @@ One can now reasonably think about closed monoidal categories, when you lose the
 I hope this gives you the suitable style in which enriched category theory is defined. You can go on to define enriched natural transformations, enriched Yoneda lemma, enriched adjunctions and so on but we shall stop here and move onto a much more important topic of Simplicial Categories ,i.e. categories enriched over $(\textbf{SSet},\times,\star)$. 
 
 % Revision required
-Any simplicial category $\underline{\mathcal{C}}$ gives a simplicial object in \textbf{Cat}. Any simplicial category gives us a simplicial object in the \textbf{Cat}, i.e. the enrichment yields a structure such that, therefore at each level you can define a \textbf{$C_n$} which contains the same objects as in the unenriched category and all n-simplicies(string of arrows with n maps) morphisms between the objects. We may denote this simplicial object as $\mathcal{C}_{\bullet}$. Under this understanding, one can except that \textbf{$C_0$} is the underlying category itself.
+Any simplicial category $\underline{\mathcal{C}}$ gives a simplicial object in \textbf{Cat}. Any simplicial category gives us a simplicial object in the \textbf{Cat}, i.e. the enrichment yields a structure such that, therefore at each level you can define a \textbf{$C_n$} which contains the same objects as in the unenriched category and all n-simplicies(string of arrows with n maps) morphisms between the objects. We may denote this simplicial object as $\mathcal{C}_{\bullet}$. Under this understanding, one can except that \textbf{$C_0$} is the underlying category itself. [I believe theres more to this, hence I must look into it]
 
-\section{Weak Factorisation Systems}
+Now, we shall try to abstract out a very important concept or rather view it as "getting as close to a self-enriched category" as possible without being self-enriched, in the following sense, and the concrete characterisation of this phenomenon can also be observed in Hom-Tensor Adjunction, which is precisely where it derives its name for.
 
-\section{Model Categories}
+The goal of getting a $\mathcal{V}$ enriched category $\underline{\mathcal{M}}$ very close to enriching over itself means that the functor $\underline{\mathcal{M}}(-,-)$ needs to have an "approximation" in $\underline{\mathcal{M}}$. This precise statement reminds us of adjunctions which are precisely how tensored categories are defined for us, which is in the following way.
+
+\begin{definition}
+	A $\mathcal{V}$-category $\underline{\mathcal{M}}$ is \textbf{tensored}\footnote{there is no universally accepted definition of tensored categories, I am just presenting the one given in Riehl's Book.} if for each $v \in \mathcal{V}$ and $m \in \mathcal{M}$, there is an object $v \otimes m \in \mathcal{M}$ with natural isomorphisms,
+\begin{center}
+	$\underline{\mathcal{M}}(v \otimes m,n)$ = $\underline{\mathcal{V}}(v,\underline{\mathcal{M}}(m,n))$
+\end{center}
+\end{definition}
+
+This is nothing but essentially just the left adjoint of the functor $\underline{\mathcal{M}}(m,-)$, which precisely explains why one would try to think of it in the way that I have mentioned above. Similarly, a cotensored category has a similar feature except it is the right adjoint of $\underline{\mathcal{M}}(m,-)$ [checking required].
+
+\begin{definition}
+        A $\mathcal{V}$-category $\underline{\mathcal{M}}$ is \textbf{cotensored}\footnote{there is no universally accepted definition of cotensored categories, I am just presenting the one given in Riehl's Book.} if for each $v \in \mathcal{V}$ and $n \in \mathcal{M}$, there is an object $n^v \in \mathcal{M}$ with natural isomorphisms,
+\begin{center}
+        $\underline{\mathcal{M}}(m,n^v)$ = $\underline{\mathcal{V}}(v,\underline{\mathcal{M}}(m,n))$
+\end{center}
+\end{definition}
+
+And with this, as one would expect, any closed symmetric monoidal category is tensored, cotensored and self-enriched. All self-enriched objects are also tensored and cotensored.
+
+\section{Weak Factorisation Systems and Model Categories}
 
 \section{Infinity Categories}
 
@@ -477,12 +497,12 @@ We now try to revisit the idea of composition in the light of the definition of 
 \end{center}
 \end{proposition}
 
-Now, we shall try to work with the "category of spaces" wherein the spaces for us are precisely Kan Complexes. The reasoning of why we call this categoyr of spaces is simply that we know that any topological space can be reduced to a CW-Complex as far as the information of homotopy groups is concerned but the structure of a CW-Complex itself can be reduced to a Simplicial Set structure using the Singular Set Functor (the functor on which the free abelian groups are generated to create the Singular Chain Functor). This will result in a Kan Complex always. Hence, studying the category of all Kan Complexes is equivalent to studying CW-Complexes and thus homotopy groups of any Topological Space. The category of spaces is also going to be an infinity category ,i.e. it will be enriched over simplicial sets which are going to be infinity groupoids because all homotopies are going to be invertible, note that this is just a shadow of the structure of homotopy and homotopy equivalences derived from the category of Topological Spaces. It is in this precise way that the "category of spaces" is going to be an infinity category because we know the category of topological spaces itself is an infinity category. We call this category spaces, \textbf{Kan}.
+Now, we shall try to work with the "category of spaces" wherein the spaces for us are precisely Kan Complexes. The reasoning of why we call this category of spaces is simply that we know that any topological space can be reduced to a CW-Complex as far as the information of homotopy groups is concerned but the structure of a CW-Complex itself can be reduced to a Simplicial Set structure using the Singular Set Functor (the functor on which the free abelian groups are generated to create the Singular Chain Functor). This will result in a Kan Complex always. Hence, studying the category of all Kan Complexes is equivalent to studying CW-Complexes and thus homotopy groups of any Topological Space. The category of spaces is also going to be an infinity category ,i.e. it will be enriched over simplicial sets which are going to be infinity groupoids because all homotopies are going to be invertible, note that this is just a shadow of the structure of homotopy and homotopy equivalences derived from the category of Topological Spaces. It is in this precise way that the "category of spaces" is going to be an infinity category because we know the category of topological spaces itself is an infinity category. We call this category spaces, \textbf{Kan}.
 
 \begin{definition}
 	Simplicial Set S. Define
 	$S_n = Fun(\Delta^n,\textbf{Kan})$
-	i.e. 0-simplices, Kan Complexes and 1-simplices, Maps between Kan Complexes and 2-simplices, Homotopies between Maps and ..., this makes S into an infinity category which is of our main interest
+	i.e. 0-simplices, Kan Complexes and 1-simplices, Maps between Kan Complexes and 2-simplices, Homotopies between Maps and ..., this makes S into an infinity category which is of our main interest.
 \end{definition}
 
 
