@@ -3,5 +3,8 @@
 \contentsline {section}{\numberline {2}Derived Functors}{4}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Homotopical Categories and Derived Functors}{4}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Enriched Category Theory}{10}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Homotopy (Co)Limits}{14}{subsection.2.3}%
 \contentsline {section}{\numberline {3}Weak Factorisation Systems and Model Categories}{14}{section.3}%
 \contentsline {section}{\numberline {4}Infinity Categories}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Introduction}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Infinity Categorical (Co)Limits}{19}{subsection.4.2}%

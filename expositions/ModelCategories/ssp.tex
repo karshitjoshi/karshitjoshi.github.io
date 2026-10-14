@@ -377,11 +377,38 @@ This is nothing but essentially just the left adjoint of the functor $\underline
 \end{center}
 \end{definition}
 
-And with this, as one would expect, any closed symmetric monoidal category is tensored, cotensored and self-enriched. All self-enriched objects are also tensored and cotensored.
+And with this, as one would expect, any closed symmetric monoidal category is tensored, cotensored and self-enriched. All self-enriched objects are also tensored and cotensored ,i.e. the adjunction becomes an equivalence. We are now well equipped to discuss simplicial model categories and simplicially enriched categories in great detail as we shall soon see into the future that these class of examples are extremely important as any model category is "equivalent" to a simplicial model category in some sense, which we shall explore further on. It is essentially to say that any information given in a model category can be reinterpreted to uniquely (up to equivalence) create a simplicial model category. We shall now make all our previous intuitionistic statements precise.
+
+If $\underline{\mathcal{M}}$ is a simplicially enriched category, then there is a canonical notion of homotopy between maps in the underlying category $\mathcal{M}$. A homotopy between $f,g::m \rightarrow n$ is given by the following diagram.
+
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXERlbHRhXjAgXFxzcWN1cCBcXERlbHRhXjAiXSxbMCwxLCJcXERlbHRhXjEiXSxbMiwxLCJcXHVuZGVybGluZXtcXG1hdGhjYWx7TX19KG0sbikiXSxbMCwxLCJkXjEgXFxzcWN1cCBkXjAiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDIsImYgXFxzcWN1cCBnIiwyXSxbMSwyLCJIIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\[\begin{tikzcd}
+	{\Delta^0 \sqcup \Delta^0} && \\
+	{\Delta^1} && {\underline{\mathcal{M}}(m,n)}
+	\arrow["{d^1 \sqcup d^0}", hook, from=1-1, to=2-1]
+	\arrow["{f \sqcup g}"', from=1-1, to=2-3]
+	\arrow["H"{description}, dashed, from=2-1, to=2-3]
+\end{tikzcd}\]
+
+Where H is the witness of the homotopy. If $\underline{\mathcal{M}}$ is also tensored, cotensored or closed monoidal then you may also create curried versions of the above diagram. The consequence of such a currying will be that the above diagram that is present in $\underline{\mathcal{V}}$ will then be present in the $\underline{\mathcal{M}}$ which may result in futher concrete criterions of when two maps are homotopic if there is a concrete realisation of the category $\underline{\mathcal{M}}$ itself and thus concrete calculations regarding homotopic diagrams which is precisely what will also help in calculating homotopy limits/colimits I believe. This also leads to a notion of homotopic equivalence which one can formalise easily. We now expand on how simplicially enriched tensored categories can further admit much more geometric characterisation than we initially realised.
+
+\begin{definition}
+	If $\mathcal{M}$ is simplicially enriched, tensored, and cocomplete, the \textbf{geometric realisation} of a simplicial object is 
+	\begin{center}
+		$|X_{\bullet}| = \int^{n \in \Delta} \Delta^n \otimes X_n$.		
+	\end{center}
+	This shall define a functor $|-|:\mathcal{M}^{\Delta^{op}} \rightarrow \mathcal{M}$.
+\end{definition}
+
+We shall now leave this discussion to pursue homotopy (co)limits and how to compute them as we have not yet formally defined model categories and this treatment will be much more fruitful once we are well equipped on how to deal with derived categories.
+
+\subsection{Homotopy (Co)Limits}
 
 \section{Weak Factorisation Systems and Model Categories}
 
 \section{Infinity Categories}
+
+\subsection{Introduction}
 
 We first deal with size issues to resolve paradoxes which occur without treating them, like the Russell's Paradox. Our solution to this is going to be Grothendiecks' Universes. A Grothendieck Universe $\mathcal{U}$ simply means that its subsets and elements constitute the model for sets as we know them. More specifically, we call the elements of $\mathcal{U}$ "small sets". Thus when we take the set of all "small sets" still is a set but is no longer a "small set" but rather a "large set". The categories that we will not be a locally small categories which is precisely saying that the object and morphism set of the category are not necessarily, "small sets". Whenever we write $\textbf{Set}$, we mean the category of Sets. Now, we jump straight into the definition of an infinity category.
 
@@ -505,6 +532,27 @@ Now, we shall try to work with the "category of spaces" wherein the spaces for u
 	i.e. 0-simplices, Kan Complexes and 1-simplices, Maps between Kan Complexes and 2-simplices, Homotopies between Maps and ..., this makes S into an infinity category which is of our main interest.
 \end{definition}
 
+We shall now move onto how does even work with (co)limits in the infinity categories.
+
+\subsection{Infinity Categorical (Co)Limits}
+
+We all know from 1-category that a (co)limit is just a universal (co)cone over some diagram $\mathcal{D}$. We are going to exactly analogously construct the cone over some simplicial set (analogous to a diagram in 1-category) in an infinity category and then define the universal property as the initial or terminal object in the category of cones over a simplicial set. This should be natural because every diagram not only has the objects, maps, but also homotopies and homotopies between homotopies, ... which can all be framed into a single simplicial set. From here onwards, I will be refering to all homotopies and higher homotopies as "higher coherence data" as it is the usual convention and expect the reader to adapt to the language aswell. Thus, our first definition of a cone arrives as follows.
+
+\begin{definition}
+	A \textbf{cone} over $F: D \rightarrow \mathcal{C}$ is a pair consisting of an object $y \in \mathcal{C}$ and a natural transformation from $\eta : 1_{y} \Rightarrow F$. Here, $D$ is a simplicial set, $\mathcal{C}$ an infinity category, the natural transformation is a 1-morphism in the infinity category $Map(I,\mathcal{C})$.\footnote{One might wonder where the objects $I,\mathcal{C}$ live ? They are in an $(\infty,2)-category$, i.e. a category that contains all infinity categories.}
+\end{definition}
+
+One can dually define the cocone which is also useful the construction of colimits. Theres another way to create cones which is to consider the join construction $(\star \wedge I)$ and then consider all functors from the join to our category wherein the image of $\star$ will always be the cone. This is essentially the same consideration instead you are making the cone, a part of the diagram data now and there is no other difference. One may also see the dual of this construction gives the cocone.
+
+\begin{definition}
+	One can check that there exists an infinity category of cones, which is true because of the functor category from the join construction.
+	\newline
+	A cone $(y,\eta)$ is a \textbf{limit cone} if for all $x \in Fun((\star \wedge I),\mathcal{C})$ , the kan complex $Map_{\mathcal{C}}(y,x)$ is contractible.
+	\newline
+	Equivalently, the canonical map of precomposition $Map_{\mathcal{C}}(x,y) \rightarrow Map_{\mathcal{C}^{(\star \wedge \mathcal{C})}}(1_x,F)$ is a homotopy equivalence.
+\end{definition}
+
+One can now realise that limits are unique upto canonical equivalence. Thus the category of limit cones over a functor is a contractible space.
 
 \newpage
 % ------------------------------------------------------------------------------
